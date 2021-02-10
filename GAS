@@ -1,0 +1,34 @@
+function doPost(e) {
+  //Copy and pastes the Outgoing Webhook token
+  var tokenA = 'ExampleToken1'
+  var tokenB = 'ExampleToken2'
+
+  //If the message sent contained the trigger word for tokenA, edit Sheet1
+  if (tokenA == e.parameter.token){
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+    var datetime     = new Date();
+    var date         = (datetime.getFullYear() + '/' + ('0' + (datetime.getMonth() + 1)).slice(-2) + '/' + ('0' + datetime.getDate()).slice(-2))
+    var user_name    = e.parameter.user_name;
+    var text         = e.parameter.text;
+    let splitText =text.split("、");
+
+    //Create the array for data to add
+    array = [date, splitText[1], splitText[2], user_name];
+    //Add the array to the last row of the Sheet1
+    sheet.appendRow(array);
+    
+    //If the message sent contained the trigger word for tokenB, edit Sheet2
+  }else if (tokenR == e.parameter.token){
+    var sheetR = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet2');
+    var datetime     = new Date();
+    var date         = (datetime.getFullYear() + '/' + ('0' + (datetime.getMonth() + 1)).slice(-2) + '/' + ('0' + datetime.getDate()).slice(-2))
+    var user_name    = e.parameter.user_name;
+    var text         = e.parameter.text;
+    let splitText =text.split("、");
+    array = [date, splitText[1], splitText[2], user_name];
+    sheetR.appendRow(array);
+  }
+
+  return
+  
+}
